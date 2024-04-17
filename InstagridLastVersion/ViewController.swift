@@ -8,7 +8,6 @@ import UIKit
 
 class ViewController: UIViewController,UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
-    
     @IBOutlet weak var ArrowToSwipe: UIImageView!
     @IBOutlet weak var TextToSwipeUp: UILabel!
     @IBOutlet weak var MainGridView: UIView!
@@ -16,31 +15,24 @@ class ViewController: UIViewController,UINavigationControllerDelegate, UIImagePi
     @IBOutlet weak var BottomLeftButton: UIButton!
     @IBOutlet weak var TopRightButton: UIButton!
     @IBOutlet weak var BottomRightButton: UIButton!
-    
+    @IBOutlet weak var TextToSwipeLeft: UILabel!
     //3 buttons to choose the main grid's layout.
-    
     @IBOutlet weak var Layout1Button: UIButton!
     @IBOutlet weak var Layout2Button: UIButton!
     @IBOutlet weak var Layout3Button: UIButton!
     
-    
     //  user's photo library.
-    
     var buttonTouched = UIButton()
     var imagePicker = UIImagePickerController()
     
     func defaultMainGridView() {
         Layout3ButtonTouched("")
     }
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         defaultMainGridView()
-        //ManageSwipeUpGesture()//
+        SwipeGesture()
     }
-    
     @IBAction func Layout1ButtonTouched(_ sender: Any) {
         if (Layout1Button.currentImage == nil) {
             removeButtonsImages()
@@ -52,8 +44,6 @@ class ViewController: UIViewController,UINavigationControllerDelegate, UIImagePi
         }
     }
     
-    
-    
     @IBAction func Layout2ButtonTouched(_ sender: Any) {
         if (Layout2Button.currentImage == nil) {
             removeButtonsImages()
@@ -64,8 +54,6 @@ class ViewController: UIViewController,UINavigationControllerDelegate, UIImagePi
             BottomRightButton.isHidden = true;
         }
     }
-    
-    
     @IBAction func Layout3ButtonTouched(_ sender: Any) {
         if (Layout3Button.currentImage == nil) {
             removeButtonsImages()
@@ -81,46 +69,98 @@ class ViewController: UIViewController,UINavigationControllerDelegate, UIImagePi
         Layout2Button.setImage(nil, for: UIControl.State.normal)
         Layout3Button.setImage(nil, for: UIControl.State.normal)
     }
-    
-    
     // images insertion
-    
     @IBAction func GridButtonTouched(_ sender: UIButton) {
         takeAPhoto()
         buttonTouched = sender
     }
-    
     @IBAction func GridButtonTouched2(_ sender: UIButton) {
         takeAPhoto()
         buttonTouched = sender
     }
-    
     @IBAction func GridButtonTouched3(_ sender: UIButton) {
         takeAPhoto()
         buttonTouched = sender
     }
-    
     @IBAction func GridButtonTouched4(_ sender: UIButton) {
         takeAPhoto()
         buttonTouched = sender
     }
     func takeAPhoto() {
         if (UIImagePickerController.isSourceTypeAvailable(.photoLibrary)) {
-            imagePicker.delegate = self
             imagePicker.sourceType = .photoLibrary
-            imagePicker.allowsEditing = false
             present(imagePicker, animated: true, completion: nil)
+            imagePicker.delegate = self
+            imagePicker.allowsEditing = false
+            
         }
-        
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)
-     if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage { insertPickedImageIntoMainGrid(pickedImage) }
+     if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage { imageIntoMainGridInsertion(pickedImage) }
     }
      
-     func insertPickedImageIntoMainGrid(_ image: UIImage) {
-         buttonTouched.contentMode = .scaleAspectFit
-         buttonTouched.setImage(image, for: UIControl.State.normal)
+     func imageIntoMainGridInsertion(_ image: UIImage) {
+         buttonTouched.contentMode = .scaleAspectFit //insertion deformation image  false//
+         buttonTouched.setImage(image, for: UIControl.State.normal) //ligne définie l'image (image) comme image normale + remplacemnt de l'image
      }
+    // ajout des gestes de balayage  ----
+    
+    func SwipeGesture() {
+       addSwipeGesture(to: ArrowToSwipe, [.up, .left])
+       addSwipeGesture(to: TextToSwipeUp, [.up])
+       addSwipeGesture(to: TextToSwipeLeft, [.left])
+       addSwipeGesture(to: MainGridView, [.up, .left])
+    }
+    func addSwipeGesture(to view: UIView, _ gesture_tab: [UISwipeGestureRecognizer.Direction]) {
+        for direction in gesture_tab {
+            let gesture = UISwipeGestureRecognizer(target: self, action: #selector(Swiped(_:)))
+            gesture.direction = direction
+            view.addGestureRecognizer(gesture)
+        }
+    }
+    func isSwipeValid(_ sender: UISwipeGestureRecognizer) -> Bool {
+        return (sender.direction == .left && traitCollection.verticalSizeClass == .compact) || (sender.direction == .up && traitCollection.verticalSizeClass == .regular && traitCollection.horizontalSizeClass == .compact)
+    }
+    @objc func Swiped(_ sender: UISwipeGestureRecognizer) {
+        if isSwipeValid(sender) {
+            var translation = CGAffineTransform();
+            if (sender.direction == .up) {
+                translation = CGAffineTransform(translationX: 0, y: -MainGridView.frame.maxY)
+            }
+            else if (sender.direction == .left) {
+                translation = CGAffineTransform(translationX: -MainGridView.frame.maxX, y: 0)
+            }
+            UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0, options: [.curveEaseIn], animations: {
+                self.MainGridView.transform = translation
+                },
+                completion: { (end) in
+                    let share = self.mainGridImageReadyToShare(sender);
+                    self.present(share, animated: true);
+                }
+            )
+        }
+    }
+    func mainGridImageReadyToShare(_ sender: UISwipeGestureRecognizer) -> UIActivityViewController {
+        let image = [self.MainGridView.image]
+        let activityViewController = UIActivityViewController(activityItems: image as [Any], applicationActivities: nil)
+        activityViewController.completionWithItemsHandler = UIActivityViewController.CompletionWithItemsHandler? { activityType,completed,returnedItems,activityError in
+            UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0, options: [.curveEaseIn], animations: {
+                self.MainGridView.transform = CGAffineTransform(translationX: 0, y: 0)
+                },
+                completion: nil
+            )
+        }
+        return activityViewController
+    }
+    // SWIPE PART end
 }
+extension UIView {
+    var image: UIImage? {
+        let renderer = UIGraphicsImageRenderer(bounds: bounds)
+        return renderer.image { rendererContext in layer.render(in: rendererContext.cgContext) }
+    }
+}
+
+
