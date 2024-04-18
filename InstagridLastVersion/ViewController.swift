@@ -95,17 +95,18 @@ class ViewController: UIViewController,UINavigationControllerDelegate, UIImagePi
             
         }
     }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        picker.dismiss(animated: true, completion: nil)
+    //next session
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {//dictionnaire contenant des informations sur l'image sélectionnée.
+        picker.dismiss(animated: true, completion: nil) //Fermeture du contrôleur de sélection d'image nill cune action particulière n'est exécutée une fois que le contrôleur de sélection d'image est fermé.
+        
      if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage { imageIntoMainGridInsertion(pickedImage) }
     }
      
      func imageIntoMainGridInsertion(_ image: UIImage) {
-         buttonTouched.contentMode = .scaleAspectFit //insertion deformation image  false//
-         buttonTouched.setImage(image, for: UIControl.State.normal) //ligne définie l'image (image) comme image normale + remplacemnt de l'image
+         buttonTouched.contentMode = .scaleAspectFit //insertion ajustemn sans deformation image //
+         buttonTouched.setImage(image, for: UIControl.State.normal) //image contenu du bouton
      }
-    // ajout des gestes de balayage  ----
+    // Add Gesture *balayage* To defferent Elements
     
     func SwipeGesture() {
        addSwipeGesture(to: ArrowToSwipe, [.up, .left])
@@ -116,16 +117,18 @@ class ViewController: UIViewController,UINavigationControllerDelegate, UIImagePi
     func addSwipeGesture(to view: UIView, _ gesture_tab: [UISwipeGestureRecognizer.Direction]) {
         for direction in gesture_tab {
             let gesture = UISwipeGestureRecognizer(target: self, action: #selector(Swiped(_:)))
-            gesture.direction = direction
-            view.addGestureRecognizer(gesture)
+            gesture.direction = direction //Configuration de la direction du geste de balayage
+            view.addGestureRecognizer(gesture) //ajoute le geste de balayage à la vue
         }
     }
+    //geste Valid Or Not 
     func isSwipeValid(_ sender: UISwipeGestureRecognizer) -> Bool {
         return (sender.direction == .left && traitCollection.verticalSizeClass == .compact) || (sender.direction == .up && traitCollection.verticalSizeClass == .regular && traitCollection.horizontalSizeClass == .compact)
     }
+    //Cette annotation indique que la méthode Swiped(_:) peut être accessible depuis Objective-C. Elle est nécessaire lorsqu'une méthode est utilisée comme cible d'un sélecteur Objective-C, comme c'est le cas lors de la création d'un UISwipeGestureRecognizer.
     @objc func Swiped(_ sender: UISwipeGestureRecognizer) {
         if isSwipeValid(sender) {
-            var translation = CGAffineTransform();
+            var translation = CGAffineTransform()
             if (sender.direction == .up) {
                 translation = CGAffineTransform(translationX: 0, y: -MainGridView.frame.maxY)
             }
@@ -136,14 +139,15 @@ class ViewController: UIViewController,UINavigationControllerDelegate, UIImagePi
                 self.MainGridView.transform = translation
                 },
                 completion: { (end) in
-                    let share = self.mainGridImageReadyToShare(sender);
-                    self.present(share, animated: true);
+                    let share = self.mainGridImageReadyToShare(sender)
+                    self.present(share, animated: true)
                 }
             )
         }
     }
     func mainGridImageReadyToShare(_ sender: UISwipeGestureRecognizer) -> UIActivityViewController {
-        let image = [self.MainGridView.image]
+        let image = [self.MainGridView.image] //preparation image
+        
         let activityViewController = UIActivityViewController(activityItems: image as [Any], applicationActivities: nil)
         activityViewController.completionWithItemsHandler = UIActivityViewController.CompletionWithItemsHandler? { activityType,completed,returnedItems,activityError in
             UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0, options: [.curveEaseIn], animations: {
@@ -156,6 +160,8 @@ class ViewController: UIViewController,UINavigationControllerDelegate, UIImagePi
     }
     // SWIPE PART end
 }
+
+//ajoute une propriété calculée image, qui permet de générer une image à partir du contenu de la vue.
 extension UIView {
     var image: UIImage? {
         let renderer = UIGraphicsImageRenderer(bounds: bounds)
