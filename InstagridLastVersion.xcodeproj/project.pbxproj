@@ -80,9 +80,9 @@
 			children = (
 				DBA551FF2BBF0FDC0071A2DC /* AppDelegate.swift */,
 				DBA552012BBF0FDC0071A2DC /* SceneDelegate.swift */,
-				DBA552032BBF0FDC0071A2DC /* ViewController.swift */,
 				DBA552052BBF0FDC0071A2DC /* Main.storyboard */,
 				DBA5520B2BBF0FDE0071A2DC /* Assets.xcassets */,
+				DBA552032BBF0FDC0071A2DC /* ViewController.swift */,
 				DBA5524B2BBF1A100071A2DC /* Delm-Medium.otf */,
 				DBA5524A2BBF1A100071A2DC /* ThirstySoftRegular.otf */,
 				DBA552222BBF10DE0071A2DC /* Arrow Left@3x.png */,
@@ -92,10 +92,10 @@
 				DBA552272BBF10DE0071A2DC /* Layout 1@2x.png */,
 				DBA5521C2BBF10DE0071A2DC /* Layout 2@3x.png */,
 				DBA5522D2BBF10DE0071A2DC /* Layout 3@3x.png */,
-				DBA552292BBF10DE0071A2DC /* Plus@3x.png */,
 				DBA5522B2BBF10DE0071A2DC /* Selected@3x.png */,
 				DBA5520D2BBF0FDE0071A2DC /* LaunchScreen.storyboard */,
 				DBA552102BBF0FDE0071A2DC /* Info.plist */,
+				DBA552292BBF10DE0071A2DC /* Plus@3x.png */,
 			);
 			path = InstagridLastVersion;
 			sourceTree = "<group>";
