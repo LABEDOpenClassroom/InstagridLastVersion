@@ -158,10 +158,7 @@ class ViewController: UIViewController,UINavigationControllerDelegate, UIImagePi
         }
         return activityViewController
     }
-    // SWIPE PART end
 }
-
-//ajoute une propriété calculée image, qui permet de générer une image à partir du contenu de la vue.
 extension UIView {
     var image: UIImage? {
         let renderer = UIGraphicsImageRenderer(bounds: bounds)
