@@ -31,10 +31,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" image="Arrow Left.png" translatesAutoresizingMaskIntoConstraints="NO" id="EFJ-BZ-dz2" userLabel="ArrowToSwipe">
-                                <rect key="frame" x="121.33333333333331" y="136.66666666666666" width="30" height="30"/>
+                                <rect key="frame" x="143.33333333333334" y="205" width="23" height="23"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="1yp-eL-XY5"/>
-                                    <constraint firstAttribute="height" constant="30" id="9OT-e9-Jsz"/>
+                                    <constraint firstAttribute="width" constant="23" id="1yp-eL-XY5"/>
+                                    <constraint firstAttribute="height" constant="23" id="9OT-e9-Jsz"/>
                                 </constraints>
                                 <variation key="heightClass=regular-widthClass=compact" image="Arrow Up.png"/>
                             </imageView>
@@ -175,7 +175,7 @@
                             <constraint firstItem="yc0-d8-fJq" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Cl7-9p-mJS"/>
                             <constraint firstItem="EFJ-BZ-dz2" firstAttribute="centerX" secondItem="vbE-ET-lVb" secondAttribute="centerX" id="DK4-dC-qzD"/>
                             <constraint firstItem="fbW-1W-W8r" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="DKO-Ly-wG9"/>
-                            <constraint firstItem="EFJ-BZ-dz2" firstAttribute="centerY" secondItem="yc0-d8-fJq" secondAttribute="centerY" constant="-45" id="GN4-hj-NOC"/>
+                            <constraint firstItem="EFJ-BZ-dz2" firstAttribute="centerY" secondItem="yc0-d8-fJq" secondAttribute="centerY" constant="20" id="GN4-hj-NOC"/>
                             <constraint firstItem="fbW-1W-W8r" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="LnN-6c-1E1"/>
                             <constraint firstItem="vbE-ET-lVb" firstAttribute="top" secondItem="EFJ-BZ-dz2" secondAttribute="bottom" constant="8" id="M0B-HO-y3t"/>
                             <constraint firstItem="YZL-Th-9iN" firstAttribute="centerY" secondItem="fbW-1W-W8r" secondAttribute="centerY" id="NQ1-5Q-dDU"/>
@@ -189,7 +189,7 @@
                             <constraint firstItem="fbW-1W-W8r" firstAttribute="top" secondItem="gam-xV-zMa" secondAttribute="top" constant="40" id="kXB-JD-mv7"/>
                             <constraint firstItem="vbE-ET-lVb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="nng-QK-rEg"/>
                             <constraint firstItem="fbW-1W-W8r" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="trV-bf-YMU"/>
-                            <constraint firstItem="EFJ-BZ-dz2" firstAttribute="trailing" secondItem="yc0-d8-fJq" secondAttribute="trailing" constant="-80" id="umb-M5-1wu"/>
+                            <constraint firstItem="EFJ-BZ-dz2" firstAttribute="trailing" secondItem="yc0-d8-fJq" secondAttribute="trailing" constant="-65" id="umb-M5-1wu"/>
                             <constraint firstItem="gam-xV-zMa" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="wbq-nZ-Lmj"/>
                             <constraint firstAttribute="trailing" secondItem="YZL-Th-9iN" secondAttribute="trailing" constant="60" id="xIe-bT-aaD"/>
                             <constraint firstItem="yc0-d8-fJq" firstAttribute="leading" secondItem="fbW-1W-W8r" secondAttribute="leading" constant="-181" id="yc1-ig-vrF"/>
