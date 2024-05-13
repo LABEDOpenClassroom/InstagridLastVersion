@@ -38,7 +38,7 @@ class ViewController: UIViewController,UINavigationControllerDelegate, UIImagePi
             removeButtonsImages()
             BottomRightButton.isEnabled = true;
             BottomRightButton.isHidden = false;
-            Layout1Button.setImage(UIImage(named: "Selected"), for: UIControl.State.normal)
+            Layout1Button.setImage(UIImage(named: "Selected")?.withRenderingMode(.alwaysOriginal), for: .normal)
             TopRightButton.isEnabled = false;
             TopRightButton.isHidden = true;
         }
@@ -49,7 +49,7 @@ class ViewController: UIViewController,UINavigationControllerDelegate, UIImagePi
             removeButtonsImages()
             TopRightButton.isEnabled = true;
             TopRightButton.isHidden = false;
-            Layout2Button.setImage(UIImage(named: "Selected"), for: UIControl.State.normal)
+            Layout2Button.setImage(UIImage(named: "Selected")?.withRenderingMode(.alwaysOriginal), for: .normal)
             BottomRightButton.isEnabled = false;
             BottomRightButton.isHidden = true;
         }
@@ -61,7 +61,7 @@ class ViewController: UIViewController,UINavigationControllerDelegate, UIImagePi
             BottomRightButton.isEnabled = true;
             TopRightButton.isHidden = false;
             BottomRightButton.isHidden = false;
-            Layout3Button.setImage(UIImage(named: "Selected"), for: UIControl.State.normal)
+            Layout3Button.setImage(UIImage(named: "Selected")?.withRenderingMode(.alwaysOriginal), for: .normal)
         }
     }
     func removeButtonsImages() {
@@ -104,7 +104,10 @@ class ViewController: UIViewController,UINavigationControllerDelegate, UIImagePi
      
      func imageIntoMainGridInsertion(_ image: UIImage) {
          buttonTouched.contentMode = .scaleAspectFit
+         /*
          buttonTouched.setImage(image, for: UIControl.State.normal)
+          */
+         buttonTouched.setImage(image.withRenderingMode(.alwaysOriginal), for: .normal)
      }
     // Add Gesture *balayage* To defferent Elements
     
